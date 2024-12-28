@@ -1,15 +1,15 @@
-![PostgreSQl version](https://img.shields.io/badge/PostgreSQL-14-blue.svg)
+![PostgreSQl version](https://img.shields.io/badge/PostgreSQL-16-blue.svg)
 
 # Simplified Star from AdventureWorksDW
 
-This repo contains a simplified star **for PostgreSQL** with 4 tables (1 fact and 3 related dimensions) from [Microsoft's AdventureWorksDW](https://github.com/microsoft/sql-server-samples/tree/master) (more information [here](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms)).
+This repo contains **PostgreSQL** scripts to reproduce a simplified star with 4 tables (1 fact and 3 related dimensions) from [Microsoft's AdventureWorksDW](https://github.com/microsoft/sql-server-samples/tree/master) (more information [here](https://learn.microsoft.com/en-us/sql/samples/adventureworks-install-configure?view=sql-server-ver16&tabs=ssms)).
 
 Adventure Works DW (DW for "Data Warehouse") comes in various flavors of Microsoft-related technologies: Transact SQL, SQL Server, and even as Power Bi projects. You can find PostgreSQL dumps out there on GitHub, but I was unable to make them work.
 
-I gave up on trying to restore the whole database, because I just need it for small demonstration purposes. [I got the idea of simplifying the model from this Medium article](https://medium.com/@marinicaionel/dimensional-design-using-adventure-works-dw-a4837fcb9d3b)
+I gave up on trying to restore the whole database, because I just need it for small demonstration purposes. [I got the idea of simplifying the model from this Medium article](https://medium.com/@marinicaionel/dimensional-design-using-adventure-works-dw-a4837fcb9d3b).
 
 
-I modified the scripts with the help of Chat GPT.
+I changed the scripts with the help of Chat GPT.
 
 
 Things I've done:
@@ -17,16 +17,22 @@ Things I've done:
 * Told ChatGPT to translate the Transact SQL to PostgreSQL.
 * Replaced money by float, then convert float to money in Postgres.
 * Made table and column names lowercase instead of CamelCase (which is PostgreSQL standards).
-* I modified the files by hand. I did not record them.
+* I modified the files by hand.
+* I created backup SQL files using PgAdmin. I decided to remove the backup dump from the repo because it generates conflicts, the database is small enough to create it from a set of SQL scripts.
 * *This is what worked after a lot of pain and trials with other files*.
 
 ## Other formats
 
-For now, I created a PostgreSQL dump. I would like to create the same for SQLite, and maybe some other formats too.
+For now, I created PostgreSQL files. I would like to create the same for SQLite, and maybe some other formats too. The `data` directory has the 4 tables in CSV format with `|` (pipe) separator.
 
 ## Installation
 
-The `PostgreSQL` directory contains a `backup` file, you can create a new database from it.
+First, create a PostcreSQL database, without any tables. Then you can run the scripts to create the tables and to load the data.
+
+The `PostgreSQL` directory contains:
+
+* `create_tables.sql` : run this first to create all the tables.
+* `insert_into.sql`: run this to fill the tables.
 
 Another option is to use the `create_tables.sql` file to create the tables and the use the CSV files in the `data` directory to load the tables (separator is a pipe `|`).
 
